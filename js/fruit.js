@@ -5,6 +5,7 @@ var fruitObj=function(){
 	this.l=[];
 	this.v=[];
 	this.fruitType=[];
+	this.aneNo=[];
 	this.orange=new Image();
 	this.blue=new Image();
 }
@@ -16,6 +17,7 @@ fruitObj.prototype.init=function(){
 		this.y[i]=0;
 		this.v[i]=Math.random()*0.01+0.003;
 		this.fruitType[i]="";
+		this.aneNo[i]=0;
 	}
 	this.orange.src='./src/fruit.png';
 	this.blue.src='./src/blue.png';
@@ -31,6 +33,10 @@ fruitObj.prototype.draw=function(){
 				pic=this.orange;
 			}
 			if (this.l[i]<=15) {
+				//grow
+				var NO=this.aneNo[i];
+				this.x[i]= ane.headx[NO];
+				this.y[i]= ane.heady[NO];
 				this.l[i]+=this.v[i]*deltaTime;
 			}
 			else{
@@ -46,9 +52,8 @@ fruitObj.prototype.draw=function(){
 }
 
 fruitObj.prototype.born=function(i){
-	var aneID=Math.floor(Math.random()*ane.num);
-	this.x[i]=ane.x[aneID];
-	this.y[i]=canHeight-ane.len[aneID];
+	this.aneNo[i]=Math.floor(Math.random()*ane.num);
+	
 	this.l[i]=0;
 	this.alive[i]=true;
 	var ran=Math.random();
